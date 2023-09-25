@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hospital Packages</title>
+</head>
+<body>
+    <!-- Display the hospital ID from the model -->
+    <p>Hospital ID:  <span id="hospidPlaceholder"></span></p>
+    <p>Hospital ID: ${hospid}</p>
+
+    <!-- Include jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <script>
+        // Function to send hospid to the controller
+        function sendHospIdToController(hospId) {
+            $.ajax({
+                type: "POST",
+                url: "/getPackages", // Replace with your controller endpoint
+                data: { hospid: hospId },
+                success: function (response) {
+                    console.log("Hospital ID sent successfully.");
+                },
+                error: function () {
+                    console.error("Error sending the hospital ID.");
+                }
+            });
+        }
+
+         // When the page is loaded
+    $(document).ready(function () {
+        // Get the hospital ID from the Thymeleaf model
+       // var hospId = [[@{hospid}]]; // Thymeleaf expression to retrieve the model attribute
+
+        // Set the hospital ID in the page
+        $("#hospidPlaceholder").text(hospId);
+
+        // Send the hospital ID to the controller
+        sendHospIdToController(hospId);
+    });
+    </script>
+</body>
+</html>
